@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Interactive Map with Filter</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/topojson.v3.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="tooltip" id="tooltip"></div>
+    <div class="dropdown-listbox">
+      <button class="dropbtn" id="dropbtn" onclick="toggleDropdown()">Select a view</button>
+      <div class="dropdown-content" id="dropdownMenu">
+        <label>
+          <input type="radio" name="view" id="toggleCities" onclick="changeView('cities')"> 
+          <img src="Icones/Filtre_mapa/coliseo.png" class="filter-icon" alt="Ciutats"> Ciutats
+        </label>
+        <label>
+          <input type="radio" name="view" id="toggleBattles" onclick="changeView('battles')"> 
+          <img src="Icones/Filtre_mapa/batalles.png" class="filter-icon" alt="Batalles"> Batalles
+        </label>
+      </div>
+    </div>
+    
+    <svg id="map"></svg>
+
+    <script src="script.js"></script>
+  </body>
+</html>

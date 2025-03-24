@@ -1,0 +1,80 @@
+input[type="radio"] {
+  display: none;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Cinzel', serif;
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+  button, .dropbtn {
+    font-family: 'Cinzel', serif;
+    font-size: 16px; /* Pots ajustar la mida si vols */
+  }
+  .dropdown-listbox {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+  }
+  .dropbtn {
+    background-color: #7D0000;
+    color: #C4A000;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 170px; /* Amplada fixa per al botó */
+    text-align: left
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #7D0000;
+    color:#C4A000;
+    min-width: 150px;
+    box-shadow: 0px 4px 8px #C4A000;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  .dropdown-content label {
+    display: block;
+    padding: 5px;
+    cursor: pointer;
+  }
+  .dropdown-content label:hover {
+    background-color: #f0f0f0;
+  }
+  .city {
+    fill: red;
+    stroke: black;
+    stroke-width: 0.5;
+  }
+  .battle {
+    fill: blue;
+    stroke: black;
+    stroke-width: 0.5;
+  }
+  .tooltip {
+    position: absolute;
+    background: #7D0000;
+    color: #C4A000;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'Cinzel', serif;
+    pointer-events: none;
+    visibility: hidden;
+  }
+  .filter-icon {
+    width: 20px; /* Ajusta la mida de la imatge */
+    height: 20px;
+    margin-right: 8px; /* Espai entre la icona i el text */
+    vertical-align: middle;
+  }
+  
