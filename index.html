@@ -11,15 +11,23 @@
   <body>
     <div class="tooltip" id="tooltip"></div>
     <div class="dropdown-listbox">
-      <button class="dropbtn" id="dropbtn" onclick="toggleDropdown()">Select a view</button>
+      <button class="dropbtn" id="dropbtn" onclick="toggleDropdown()">SELECT A VIEW</button>
       <div class="dropdown-content" id="dropdownMenu">
         <label>
           <input type="radio" name="view" id="toggleCities" onclick="changeView('cities')"> 
-          <img src="Icones/Filtre_mapa/coliseo.png" class="filter-icon" alt="Ciutats"> Ciutats
+          <img src="Icones/Filtre_mapa/coliseo.png" class="filter-icon" alt="Cities"> CITIES
         </label>
         <label>
           <input type="radio" name="view" id="toggleBattles" onclick="changeView('battles')"> 
-          <img src="Icones/Filtre_mapa/batalles.png" class="filter-icon" alt="Batalles"> Batalles
+          <img src="Icones/Filtre_mapa/batalles.png" class="filter-icon" alt="Battles"> BATTLES
+        </label>
+        <label>
+          <input type="radio" name="view" id="toggleConquerors" onclick="changeView('conquerors')"> 
+          <img src="Icones/Filtre_mapa/conqueridors.png" class="filter-icon" alt="Conquerors"> CONQUERORS
+        </label>
+        <label>
+          <input type="radio" name="view" id="toggleProvinces" onclick="changeView('provinces')"> 
+          <img src="Icones/Filtre_mapa/provincies.png" class="filter-icon" alt="Provinces"> PROVINCES
         </label>
       </div>
     </div>

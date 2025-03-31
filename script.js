@@ -93,12 +93,19 @@ function toggleDropdown() {
     // Definir el text i la icona segons la selecció
     var text, iconSrc;
     if (view === "cities") {
-        text = "Ciutats";
+        text = "Cities";
         iconSrc = "Icones/Filtre_mapa/coliseo.png"; // Assegura't que aquest camí sigui correcte
     } else if (view === "battles") {
-        text = "Batalles";
+        text = "Battles";
         iconSrc = "Icones/Filtre_mapa/batalles.png"; // Assegura't que aquest camí sigui correcte
+    } else if (view === "conquerors") {  // Afegim el cas de "conquerors"
+        text = "Conquerors";
+        iconSrc = "Icones/Filtre_mapa/conqueridors.png";
+    } else if (view === "provinces") {  // Afegim el cas de "conquerors"
+        text = "Provinces";
+        iconSrc = "Icones/Filtre_mapa/provincies.png";
     }
+
 
     // Canviar el contingut del botó
     button.innerHTML = `<img src="${iconSrc}" class="filter-icon" alt="${text}"> ${text}`;
