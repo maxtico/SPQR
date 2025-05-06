@@ -77,4 +77,107 @@ body {
     margin-right: 8px; /* Espai entre la icona i el text */
     vertical-align: middle;
   }
+  #timeline-container {
+    position: fixed; /* perquè es pugui col·locar a la pantalla */
+    bottom: 20px;
+    left: 30%;
+    z-index: 1000;
+    background-color: transparent; /* Fons transparent */
+    color: #7D0000; /* Color vermell del text */
+    padding: 10px 20px;
+    border-radius: 0;
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: none; /* Si no vols ombra */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  #yearLabelText {
+    font-size: 20px;
+    font-weight: bold;
+    color: #7D0000; /* Mantenim el mateix color que el teu estil */
+  }
+  
+  #yearLabel {
+    display: inline-block; /* Això assegura que el text es mantingui de manera independent de la barra */
+    width: 50px;  /* Amplada fixa per al text dels anys */
+    text-align: center;
+    color: #7D0000; /* Mantenim el mateix color que el teu estil */
+  }
+  
+  #yearInput {
+    width: 80px; /* Amplada fixa per al camp de text */
+    text-align: center; /* Centrar el text dins de l'input */
+    font-size: 20px; /* Mida de la font */
+    font-weight: bold; /* Font en negreta */
+    color: #7D0000; /* Color vermell com el label */
+    background-color: transparent; /* Fons transparent per mantenir la coherència */
+    border: none; /* Sense bordes */
+    border-bottom: 2px solid #7D0000; /* Línia a la part inferior per a una separació visual */
+    outline: none; /* Evitar el contorn que apareix quan es fa focus */
+    box-sizing: border-box; /* Assegurem que el padding i la mida s'ajustin correctament */
+    transition: border-color 0.3s ease; /* Transició suau per al canvi de color de la línia de la part inferior */
+  }
+  
+  #yearInput:focus {
+    border-color: #A70000; /* Color de la línia inferior quan l'input està en focus */
+    background-color: rgba(125, 0, 0, 0.1); /* Fons lleugerament colorat quan es fa focus */
+  }
+  
+  #yearInput::placeholder {
+    color: #7D0000; /* Color del text de placeholder */
+    opacity: 0.6; /* Menys opacitat per al placeholder */
+  }
+  
+  #yearRange {
+    width: 400px; /* Amplada fixa per a la barra */
+    appearance: none; /* Eliminem l'aspecte predeterminat */
+    background: transparent; /* Fons transparent */
+    border: none; /* Evitem que hi hagi bordes */
+  }
+  
+  #yearRange::-webkit-slider-runnable-track {
+    height: 10px;  /* Alçada fixa per a la barra */
+    background: #ddd; /* Fons gris clar per a la barra */
+  }
+  
+  #yearRange::-webkit-slider-thumb {
+    height: 20px;         /* Mida del thumb */
+    width: 20px;          /* Mida del thumb */
+    background: #7D0000;  /* Color vermell per al thumb */
+    border-radius: 50%;   /* Fer-lo rodó */
+    cursor: pointer;     /* Canviar el cursor quan es passa per sobre */
+    -webkit-appearance: none; /* Eliminar aspecte predeterminat a Chrome i Safari */
+    margin-top: -5px; /* Centrem verticalment el thumb (ajustar segons sigui necessari) */
+  }
+  
+  #yearRange::-moz-range-track {
+    height: 10px; /* Alçada fixa per a la barra */
+    background: #ddd; /* Fons gris clar per a la barra */
+  }
+  
+  #yearRange::-moz-range-thumb {
+    height: 20px;         /* Mida del thumb */
+    width: 20px;          /* Mida del thumb */
+    background: #7D0000;  /* Color vermell per al thumb */
+    border-radius: 50%;   /* Fer-lo rodó */
+    cursor: pointer;     /* Canviar el cursor quan es passa per sobre */
+    margin-top: -5px;     /* Centrem verticalment el thumb (ajustar segons sigui necessari) */
+  }
+  
+  #yearRange::-ms-thumb {
+    height: 20px;         /* Mida del thumb */
+    width: 20px;          /* Mida del thumb */
+    background: #7D0000;  /* Color vermell per al thumb */
+    border-radius: 50%;   /* Fer-lo rodó */
+    cursor: pointer;     /* Canviar el cursor quan es passa per sobre */
+    appearance: none;     /* Eliminar aspecte predeterminat a Edge */
+    margin-top: -5px;     /* Centrem verticalment el thumb (ajustar segons sigui necessari) */
+  }
+  
+  
+
   

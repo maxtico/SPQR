@@ -187,3 +187,34 @@ function showTooltip(event, d, type) {
 function hideTooltip() {
   tooltip.style("visibility", "hidden");
 }
+
+// Timeline slider
+const yearRange = document.getElementById("yearRange");
+const yearInput = document.getElementById("yearInput"); // Nou input de text per l'any
+
+// Actualitzar el valor de l'any quan es mou la barra de desplaçament
+yearRange.addEventListener("input", function () {
+  const year = +yearRange.value;
+  yearInput.value = year;  // Actualitzar també el camp de text
+
+  // Cridem la funció per filtrar les dades per any
+  filterByYear(year);
+});
+
+// Actualitzar la barra de desplaçament quan l'usuari escriu un valor a l'input de text
+yearInput.addEventListener("change", function () {
+  const year = yearInput.value;
+  // Comprovem que l'any és vàlid dins de l'interval
+  if (!isNaN(year) && year >= -753 && year <= 476) {
+    yearRange.value = year;  // Actualitzar la barra de desplaçament
+    filterByYear(year);  // Cridar la funció per filtrar les dades
+  } else {
+    yearInput.value = yearRange.value;  // Si l'any no és vàlid, restaurar el valor de la barra
+  }
+});
+
+function filterByYear(year) {
+  g.selectAll("circle").each(function(d) {
+    d3.select(this).style("display", +d.Year <= +year ? "block" : "none");
+  });
+} 
