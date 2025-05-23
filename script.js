@@ -15,6 +15,9 @@ var svg = d3.select("#map")
 // Grup per gestionar transformacions amb zoom
 var g = svg.append("g");
 
+var countriesLayer = g.append("g").attr("id", "countries");
+var provincesLayer = g.append("g").attr("id", "provinces");
+
 // Tooltip
 var tooltip = d3.select("#tooltip");
 
@@ -27,33 +30,67 @@ var zoom = d3.zoom()
 // Aplicar zoom
 svg.call(zoom);
 
-// Carregar dades TopoJSON
-d3.json("land_50m.json").then(function(data) {
-  var countries = topojson.feature(data, data.objects.land).features;
+// Substitueix tota la carrega inicial per:
 
-  // Dibuixar els països
-  g.selectAll("path")
+Promise.all([
+  d3.csv("Taules/provinces.csv"),
+  d3.json("land_50m.json")
+])
+.then(function([meta, topoData]) {
+  // 1. Processa el CSV
+  provinceIndex = {};
+  meta.forEach(d => {
+    provinceIndex[d.Province] = { file: d.File, year: +d.Year };
+  });
+
+  // 2. Dibuixa el mapa base
+  const countries = topojson.feature(topoData, topoData.objects.land).features;
+  countriesLayer.selectAll("path")
     .data(countries)
     .enter().append("path")
-    .attr("d", path)
-    .style("fill", "#ccc")
-    .style("stroke", "#333")
-    .style("stroke-width", 0.01);
+      .attr("d", path)
+      .style("fill", "#ccc")
+      .style("stroke", "#333")
+      .style("stroke-width", 0.01);
 
-  // Carregar dades inicials de punts
-  loadPoints("cities"); // Carreguem "Ciutats" per defecte
-
-  // Escoltar canvis al selector
+  // 3. Inicia la càrrega de punts i províncies
+  loadPoints("cities");
+  
+  // 4. Connecta el selector
   d3.select("#filter").on("change", function() {
-    var selected = d3.select(this).property("value");
-    loadPoints(selected); // Carregar punts segons la selecció
+    loadPoints(this.value);
+  });
+})
+.catch(function(err) {
+  console.error("Error carregant dades d’inicialització:", err);
+  // Tot i l’error, intentem carregar el mapa base
+  d3.json("land_50m.json").then(function(topoData) {
+    const countries = topojson.feature(topoData, topoData.objects.land).features;
+    countriesLayer.selectAll("path")
+      .data(countries)
+      .enter().append("path")
+        .attr("d", path)
+        .style("fill", "#ccc")
+        .style("stroke", "#333")
+        .style("stroke-width", 0.01);
+    loadPoints("cities");
+    d3.select("#filter").on("change", function() {
+      loadPoints(this.value);
+    });
   });
 });
+
 
 // Funció per carregar punts (ciutats o batalles)
 function loadPoints(type) {
   // Eliminar punts existents
   g.selectAll("circle").remove();
+  provincesLayer.selectAll("*").remove();
+
+  if (type === "provinces") {
+    loadProvinces();
+    return;
+  }
 
   // Carregar el dataset corresponent
   var file = type === "cities" ? "Taules/cities.csv" : "Taules/battles.csv";
@@ -78,6 +115,34 @@ function loadPoints(type) {
       .on("mouseout", hideTooltip);
     });
 }
+
+function loadProvinces() {
+  const info = provinceIndex["Spain"];
+  if (!info || !info.file) return;
+
+  provincesLayer.selectAll("*").remove();
+
+  d3.json(info.file).then(function(jsonData) {
+    const feature = jsonData.features[0];
+
+    // 1) Revertim el LinearRing per CCW
+    //    feature.geometry.coordinates[0] és l’array de parells [lon,lat]
+    feature.geometry.coordinates[0].reverse();
+
+    // 2) Pintem amb evenodd (o sense, ja que ara és CCW)
+    provincesLayer.append("path")
+      .datum(feature)
+      .attr("class", "spain-highlight")
+      .attr("d", path)
+      .attr("fill", "#a00")
+      .attr("fill-opacity", 0.4)
+      .attr("stroke", "#000")
+      .attr("stroke-width", 0.5)
+      .attr("fill-rule", "evenodd");
+  })
+  .catch(err => console.error("No s'ha pogut carregar", info.file, err));
+}
+
 
 // Funció per alternar el menú desplegable
 function toggleDropdown() {
@@ -216,5 +281,10 @@ yearInput.addEventListener("change", function () {
 function filterByYear(year) {
   g.selectAll("circle").each(function(d) {
     d3.select(this).style("display", +d.Year <= +year ? "block" : "none");
+  });
+  // Mostrar/ocultar províncies (paths amb atribut any)
+  provincesLayer.selectAll("path").each(function(d) {
+    const provinceYear = d?.properties?.Year ?? d?.Year ?? currentYear; // Assumeix que si no té any, hauria de ser visible
+    d3.select(this).style("display", +provinceYear <= +year ? "block" : "none");
   });
 } 
